@@ -1,3 +1,7 @@
+package com.koreaIT.java.BAM;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -6,11 +10,13 @@ public class Main {
 		
 		Scanner sc = new Scanner(System.in);
 		
+		List<Article> articles = new ArrayList<>();
+		
 		int lastArticleId = 0;
 		while(true) {
 			
 			System.out.printf("명령어) ");
-			String cmd = sc.nextLine();
+			String cmd = sc.nextLine().trim();
 			
 			
 			if(cmd.length() == 0) {
@@ -23,13 +29,14 @@ public class Main {
 			}
 			else if(cmd.equals("article write")) {
 				int id = lastArticleId +1;
+				lastArticleId++;
 				System.out.printf("제목 : ");
-				String cmd1 = sc.nextLine();
+				String title = sc.nextLine();
 				
 				System.out.printf("내용 : ");
-				String cmd2 = sc.nextLine();
+				String body = sc.nextLine();
 				
-				lastArticleId++;
+				Article articel = new Article(id,title,body);
 				
 				System.out.printf("%d번 글이 생성되었습니다.\n",id);
 			}
@@ -49,4 +56,14 @@ public class Main {
 	}
 }
 
-
+class Article {
+	int id;
+	String title;
+	String body;
+	
+	Article(int id , String title, String body){
+		this.id = id;
+		this.title = title;
+		this.body = body;
+	}
+}
