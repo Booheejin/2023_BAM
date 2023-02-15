@@ -72,18 +72,33 @@ public class Main {
 					
 					if(article.id == id) {
 						foundArticle = article;
+						break;
 					}
 						
 					}
 				if(foundArticle == null) {
-					System.out.printf("%d번 게시물이 존재하지 않습니다.", id);
+					System.out.printf("%d번 게시물이 존재하지 않습니다.\n", id);
 					continue;
 				}
 				
-				System.out.printf("%d번\n",foundArticle.id);
+				System.out.printf("번호 : %d\n",foundArticle.id);
 				System.out.printf("날짜 : %s\n","2023");
 				System.out.printf("제목 : %s\n",foundArticle.title);
 				System.out.printf("내용 : %s\n",foundArticle.body);
+				
+				
+			}
+			else if(cmd.startsWith("article delete ")) {
+				
+				String[] cmdBits = cmd.split(" ");
+				int id = Integer.parseInt(cmdBits[2]);
+				
+				Article foundArticle = null;
+				
+				if(foundArticle == null) {
+					System.out.printf("%d번 게시물이 존재하지 않습니다.\n", id);
+					continue;
+				}
 				
 				
 			}
