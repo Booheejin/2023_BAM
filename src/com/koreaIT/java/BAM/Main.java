@@ -53,8 +53,9 @@ public class Main {
 				
 				System.out.println("번호   |    제목");
 				for(int i = 0; i < articles.size(); i++) {
+					
 					Article article = articles.get(i);
-					System.out.printf("%d, %s",article.id,article.title);
+					System.out.printf("%d, %s\n",article.id,article.title);
 				}
 				
 			}
