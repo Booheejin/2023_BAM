@@ -72,10 +72,11 @@ public class Main {
 					
 					if(article.id == id) {
 						foundArticle = article;
+						
 						break;
 					}
 						
-					}
+				}
 				if(foundArticle == null) {
 					System.out.printf("%d번 게시물이 존재하지 않습니다.\n", id);
 					continue;
@@ -87,27 +88,38 @@ public class Main {
 				System.out.printf("내용 : %s\n",foundArticle.body);
 				
 				
+				
 			}
 			else if(cmd.startsWith("article delete ")) {
 				
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 				
-				Article foundArticle = null;
+				int foundIndex = -1;
 				
-				if(foundArticle == null) {
+				for(int i = 0; i < articles.size(); i++) {
+					Article article = articles.get(i);
+					
+					if(article.id == id) {
+						foundIndex = i;
+						break;
+					}
+						
+				}
+				if(foundIndex == -1) {
 					System.out.printf("%d번 게시물이 존재하지 않습니다.\n", id);
 					continue;
 				}
 				
+				articles.remove(foundIndex);
+				
+				System.out.printf("%d 번 게시물을 삭제 했습니다.\n",id);
 				
 			}
 			else {
 				System.out.println("존재하지 않는 명령어 입니다.");
 			}
 			
-			
-		
 		}
 		
 		
