@@ -13,7 +13,8 @@ public class Main {
 		List<Article> articles = new ArrayList<>();
 		
 		int lastArticleId = 0;
-		
+		int detailInt = 0;
+		int listInt = 0;
 		
 		while(true) {
 			
@@ -76,7 +77,6 @@ public class Main {
 				foundArticle.title = title;
 				foundArticle.body = body;
 				
-				
 				System.out.printf("%d번 글이 수정되었습니다.\n",id);
 				
 			}
@@ -88,12 +88,15 @@ public class Main {
 				}
 				
 				System.out.println("번호 |  제목  ");
+				int t = listInt;
 				for(int i = 0; i < articles.size(); i++) {
 					
 					Article article = articles.get(i);
 					System.out.printf("  %d  |  %s  \n",article.id,article.title);
+					t++;
 				}
-				
+				listInt = t;
+				System.out.printf("조회수 : %d\n",listInt);
 				
 			}
 			else if(cmd.startsWith("article detail ")) {
@@ -105,12 +108,13 @@ public class Main {
 				
 				
 				
+				int t = detailInt;
 				for(int i = 0; i < articles.size(); i++) {
 					Article article = articles.get(i);
 					
 					if(article.id == id) {
 						foundArticle = article;
-						
+						t++;
 						break;
 					}
 						
@@ -124,7 +128,8 @@ public class Main {
 				System.out.printf("제목 : %s\n",foundArticle.title);
 				System.out.printf("내용 : %s\n",foundArticle.body);
 				
-				
+				detailInt = t;
+				System.out.printf("조회수 : %d\n",detailInt);
 				
 			}
 			else if(cmd.startsWith("article delete ")) {
