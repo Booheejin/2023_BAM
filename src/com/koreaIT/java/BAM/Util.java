@@ -4,11 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Util {
-	public static void main(String[]args) {
-		Date date= new Date();
-		SimpleDateFormat foramtter = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+	public static String getDate() {
 		
-		System.out.println(foramtter.format(date));
+		Date date= new Date();
+		
+		SimpleDateFormat foramtter = new SimpleDateFormat("yyyy-dd-MM HH:mm");
+		
+//		System.out.println(foramtter.format(date));
+		
+		return foramtter.format(date);
 		
 	}
 }
