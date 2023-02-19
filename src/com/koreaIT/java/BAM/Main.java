@@ -13,8 +13,7 @@ public class Main {
 		List<Article> articles = new ArrayList<>();
 		
 		int lastArticleId = 0;
-		int detailInt = 0;
-		int listInt = 0;
+		
 		
 		while(true) {
 			
@@ -92,16 +91,15 @@ public class Main {
 					continue;
 				}
 				
-				System.out.println("번호 |  제목  |   날짜");
-				int t = listInt;
+				System.out.println("번호 |  제목  |   날짜			|  조회");
+				
 				for(int i = 0; i < articles.size(); i++) {
 					
 					Article article = articles.get(i);
-					System.out.printf("  %d  |  %s  |  %s  \n",article.id,article.title,article.regDate);
-					t++;
+					System.out.printf("  %d  |  %s   |  %s	|   %d\n",article.id,article.title,article.regDate,article.viewCnt);
+					
 				}
-				listInt = t;
-				System.out.printf("조회수 : %d번\n",listInt);
+				
 				
 			}
 			else if(cmd.startsWith("article detail ")) {
@@ -112,14 +110,12 @@ public class Main {
 				Article foundArticle = null;
 				
 				
-				
-				int t = detailInt;
 				for(int i = 0; i < articles.size(); i++) {
 					Article article = articles.get(i);
 					
 					if(article.id == id) {
 						foundArticle = article;
-						t++;
+						
 						break;
 					}
 						
@@ -129,13 +125,15 @@ public class Main {
 					continue;
 				}
 				
+				foundArticle.addViewcnt();
+				
 				System.out.printf("번호 : %d\n",foundArticle.id);
 				System.out.printf("날짜 : %s\n",foundArticle.regDate);
 				System.out.printf("제목 : %s\n",foundArticle.title);
 				System.out.printf("내용 : %s\n",foundArticle.body);
+				System.out.printf("조회수 : %d\n",foundArticle.viewCnt);
 				
-				detailInt = t;
-				System.out.printf("조회수 : %d번\n",detailInt);
+				
 				
 			}
 			else if(cmd.startsWith("article delete ")) {
@@ -180,12 +178,19 @@ class Article {
 	String regDate;
 	String title;
 	String body;
+	int viewCnt;
 	
 	Article(int id ,String regDate,String title, String body ){
 		this.id = id;
 		this.regDate = regDate;
 		this.title = title;
 		this.body = body;
+		this.viewCnt = 0;
+	}
+
+	public void addViewcnt() {
+		
+		this.viewCnt++;
 	}
 
 	
