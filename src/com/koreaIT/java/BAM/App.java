@@ -63,18 +63,10 @@ public class App {
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 				
-				Article foundArticle = null;
+				Article foundArticle = getArticleById(id);
 				
 				
-				for(int i = 0; i < articles.size(); i++) {
-					Article article = articles.get(i);
-					
-					if(article.id == id) {	
-						foundArticle = article;
-						break;
-					}
-						
-				}
+				
 				if(foundArticle == null) {
 					System.out.printf("%d번 게시물이 존재하지 않습니다.\n", id);
 					continue;
@@ -118,19 +110,9 @@ public class App {
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 				
-				Article foundArticle = null;
+				Article foundArticle = getArticleById(id);
 				
 				
-				for(int i = 0; i < articles.size(); i++) {
-					Article article = articles.get(i);
-					
-					if(article.id == id) {
-						foundArticle = article;
-						
-						break;
-					}
-						
-				}
 				if(foundArticle == null) {
 					System.out.printf("%d번 게시물이 존재하지 않습니다.\n", id);
 					continue;
@@ -152,23 +134,15 @@ public class App {
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 				
-				int foundIndex = -1;
+				Article foundArticle = getArticleById(id);
 				
-				for(int i = 0; i < articles.size(); i++) {
-					Article article = articles.get(i);
-					
-					if(article.id == id) {
-						foundIndex = i;
-						break;
-					}
-						
-				}
-				if(foundIndex == -1) {
+				
+				if(foundArticle == null) {
 					System.out.printf("%d번 게시물이 존재하지 않습니다.\n", id);
 					continue;
 				}
 				
-				articles.remove(foundIndex);
+				articles.remove(articles.indexOf(foundArticle));
 				
 				System.out.printf("%d 번 게시물을 삭제 했습니다.\n",id);
 				
@@ -181,6 +155,17 @@ public class App {
 		System.out.println("== 프로그램 끝 ==");
 		
 		sc.close();
+	}
+
+	private Article getArticleById(int id) {
+		
+		for(Article article : articles) {
+			if(article.id == id) {
+				return article;
+			}
+				
+		}
+		return null;
 	}
 
 	private void makeTestData() {
