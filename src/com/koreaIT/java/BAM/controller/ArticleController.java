@@ -8,11 +8,13 @@ import java.util.Scanner;
 import com.koreaIT.java.BAM.dto.Article;
 import com.koreaIT.java.BAM.util.Util;
 
-public class ArticleController {
+public class ArticleController extends Controller {
 	
-	List<Article> articles;
-	Scanner sc;
-	int lastArticleId;
+	private List<Article> articles;
+	private Scanner sc;
+	private int lastArticleId;
+	private String cmd;
+	
 	
 	public ArticleController(List<Article> articles, Scanner sc) {
 		this.articles = articles;
@@ -20,7 +22,33 @@ public class ArticleController {
 		this.lastArticleId = 3;
 	}
 	
-	public void acWrite(String cmd) {
+	public void doAction(String cmd ,String methodName) {
+		this.cmd =cmd;
+	
+		switch(methodName) {
+		case "write":
+			acWrite();
+			break;
+		case "modify":
+			acModify();
+			break;
+		case "list":
+			acList();
+			break;
+		case "detail":
+			acDetail();
+			break;
+		case "delete":
+			acDelete();
+			break;
+	    default:
+	    	System.out.println("존재하지 않는 명령어 입니다.");
+	    	break;
+		
+		}
+	}
+	
+	private void acWrite() {
 		int id = lastArticleId +1;
 		lastArticleId++;
 
@@ -39,9 +67,14 @@ public class ArticleController {
 	}
 	
 	
-	public void acModify(String cmd) {
+	private void acModify() {
 		
 		String[] cmdBits = cmd.split(" ");
+		
+		if(cmdBits.length == 2) {
+			System.out.println("명령어를 확인해주세요.");
+			return;
+		}
 		int id = Integer.parseInt(cmdBits[2]);
 		
 		Article foundArticle = getArticleById(id);
@@ -66,7 +99,7 @@ public class ArticleController {
 		System.out.printf("%d번 글이 수정되었습니다.\n",id);
 	}
 	
-	public void acList(String cmd) {
+	private void acList() {
 		
 		if(articles.size() == 0) {
 			System.out.println("게시글이 없습니다.");
@@ -105,9 +138,14 @@ public class ArticleController {
 		
 	}
 
-	public void acDetail(String cmd) {
+	private void acDetail() {
 		
 		String[] cmdBits = cmd.split(" ");
+		
+		if(cmdBits.length == 2) {
+			System.out.println("명령어를 확인해주세요.");
+			return;
+		}
 		int id = Integer.parseInt(cmdBits[2]);
 		
 		Article foundArticle = getArticleById(id);
@@ -129,9 +167,14 @@ public class ArticleController {
 		
 	}
 
-	public void acDelete(String cmd) {
+	private void acDelete() {
 		
 		String[] cmdBits = cmd.split(" ");
+		
+		if(cmdBits.length == 2) {
+			System.out.println("명령어를 확인해주세요.");
+			return;
+		}
 		int id = Integer.parseInt(cmdBits[2]);
 		
 		Article foundArticle = getArticleById(id);
@@ -158,4 +201,5 @@ public class ArticleController {
 		}
 		return null;
 	}
+
 }

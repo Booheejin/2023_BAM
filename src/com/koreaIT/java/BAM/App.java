@@ -1,11 +1,11 @@
 package com.koreaIT.java.BAM;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 import com.koreaIT.java.BAM.controller.ArticleController;
+import com.koreaIT.java.BAM.controller.Controller;
 import com.koreaIT.java.BAM.controller.MemberController;
 import com.koreaIT.java.BAM.dto.Article;
 import com.koreaIT.java.BAM.dto.Member;
@@ -38,47 +38,63 @@ public class App {
 			System.out.printf("명령어) ");
 			String cmd = sc.nextLine().trim();
 			
-			
 			if(cmd.length() == 0) {
 				System.out.println("명령어를 입력해주세요.");
 				continue;
 			}
-			
 			if(cmd.equals("exit")) {
 				break;
 			}
-			if(cmd.equals("member join")) {
-				memberController.doJoin();	
+			
+			String[] cmdBits = cmd.split(" "); // article detail 2
+			
+			if(cmdBits.length == 1) {
+				System.out.println("명령어를 확인해주세요.");
+				continue;
 			}
-			else if(cmd.equals("article write")) {
-				articleController.acWrite(cmd);
+			
+			String controllerName = cmdBits[0];
+			String methodName = cmdBits[1];
+			
+			Controller controller =null;
+			
+			if(controllerName.equals("member")) {
+				controller = memberController;
 			}
-			else if(cmd.startsWith("article modify ")) {
-				articleController.acModify(cmd);
-			}
-			else if(cmd.startsWith("article list")) {
-				articleController.acList(cmd);	
-			}
-			else if(cmd.startsWith("article detail ")) {
-				articleController.acDetail(cmd);
-			}
-			else if(cmd.startsWith("article delete ")) {
-				articleController.acDelete(cmd);
+			else if(controllerName.equals("article")) {
+				controller = articleController;
 			}
 			else {
 				System.out.println("존재하지 않는 명령어 입니다.");
+				continue;
 			}
+			
+			controller.doAction(cmd, methodName);
+			
+//			if(cmd.equals("member join")) {
+//				memberController.doJoin();	
+//			}
+//			else if(cmd.equals("article write")) {
+//				articleController.acWrite(cmd);
+//			}
+//			else if(cmd.startsWith("article modify ")) {
+//				articleController.acModify(cmd);
+//			}
+//			else if(cmd.startsWith("article list")) {
+//				articleController.acList(cmd);	
+//			}
+//			else if(cmd.startsWith("article detail ")) {
+//				articleController.acDetail(cmd);
+//			}
+//			else if(cmd.startsWith("article delete ")) {
+//				articleController.acDelete(cmd);
+//			}
 			
 		}
 		System.out.println("== 프로그램 끝 ==");
 		
 		sc.close();
 	}
-
-	
-
-
-	
 
 	private void makeTestData() {
 		System.out.println("게시물 테스트 데이터를 생성합니다.");
