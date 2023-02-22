@@ -16,12 +16,13 @@ public class ArticleController extends Controller {
 	private String cmd;
 	
 	
-	public ArticleController(List<Article> articles, Scanner sc) {
-		this.articles = articles;
+	public ArticleController(Scanner sc) {
+		this.articles = new ArrayList<>();
 		this.sc =sc;
 		this.lastArticleId = 3;
 	}
 	
+	@Override
 	public void doAction(String cmd ,String methodName) {
 		this.cmd =cmd;
 	
@@ -200,6 +201,13 @@ public class ArticleController extends Controller {
 				
 		}
 		return null;
+	}
+	public void makeTestData() {
+		System.out.println("게시물 테스트 데이터를 생성합니다.");
+		articles.add(new Article(1,Util.getDate(),"제목1","내용",10));
+		articles.add(new Article(2,Util.getDate(),"제목2","내용",20));
+		articles.add(new Article(3,Util.getDate(),"제목3","내용",30));
+		
 	}
 
 }
