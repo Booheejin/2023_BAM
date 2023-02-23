@@ -96,27 +96,29 @@ public class MemberController extends Controller{
 		
 		String loginid = null;
 		String ps = null;
-		
-		System.out.printf("로그인 아이디 : ");
-		loginid = sc.nextLine().trim();;
+		while(true) {
 			
-		System.out.printf("로그인 비밀번호 : ");
-		ps = sc.nextLine().trim();;
+			System.out.printf("로그인 아이디 : ");
+			loginid = sc.nextLine().trim();;
 			
-		Member member = loginDupChk(loginid);
-		
-		if (member == null) {
-			System.out.println("존재 하지 않는 아이디 입니다");
-			return;
+			System.out.printf("로그인 비밀번호 : ");
+			ps = sc.nextLine().trim();;
+			
+			Member member = loginDupChk(loginid);
+			
+			if (member == null) {
+				System.out.println("존재 하지 않는 아이디 입니다");
+				continue;
+			}
+			
+			if(member.ps.equals(ps) == false) {	
+				System.out.println("비밀번호를 확인해주세요.");
+				continue;
+			}
+			
+			System.out.printf("로그인 성공! %s 님 환영합니다\n",member.name);
+			break;
 		}
-		
-		if(member.ps.equals(ps) == false) {	
-			System.out.println("비밀번호를 확인해주세요.");
-			return;
-		}
-		
-		System.out.printf("로그인 성공! %s 님 환영합니다\n",member.name);
-		
 	}
 	
 	private Member loginDupChk(String loginid) {
