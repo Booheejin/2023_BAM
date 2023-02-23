@@ -139,7 +139,7 @@ public class MemberController extends Controller{
 			return true;
 		}
 		
-		return true;
+		return false;
 	}
 
 	public int getLastMemberId() {
