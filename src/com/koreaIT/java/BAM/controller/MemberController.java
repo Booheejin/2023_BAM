@@ -18,7 +18,7 @@ public class MemberController extends Controller{
 	public MemberController(Scanner sc) {
 		this.members = new ArrayList<>();
 		this.sc =sc;
-		this.lastMemberId = 0;
+		this.setLastMemberId(0);
 	}
 	
 	@Override
@@ -28,6 +28,9 @@ public class MemberController extends Controller{
 		switch(methodName) {
 		case "join":
 			doJoin();
+			break;
+		case "login":
+			doLogin();
 			break;
 		default:
 	    	System.out.println("존재하지 않는 명령어 입니다.");
@@ -88,15 +91,63 @@ public class MemberController extends Controller{
 		
 		System.out.printf("%s 회원님 환영합니다.\n", loginid);
 	}
-
-	private boolean namediDupChk(String loginid) {
+	
+	private void doLogin(){
+		
+		String loginid = null;
+		String ps = null;
+		
+		System.out.printf("로그인 아이디 : ");
+		loginid = sc.nextLine().trim();;
+			
+		System.out.printf("로그인 비밀번호 : ");
+		ps = sc.nextLine().trim();;
+			
+		Member member = loginDupChk(loginid);
+		
+		if (member == null) {
+			System.out.println("존재 하지 않는 아이디 입니다");
+			return;
+		}
+		
+		if(member.ps.equals(ps) == false) {	
+			System.out.println("비밀번호를 확인해주세요.");
+			return;
+		}
+		
+		System.out.printf("로그인 성공! %s 님 환영합니다\n",member.name);
+		
+	}
+	
+	private Member loginDupChk(String loginid) {
 		
 		for(Member member: members) {
-			if(member.nameid.equals(loginid)) {
-				return false;
+			if(member.loginid.equals(loginid)) {
+				
+				return member;
 			}
 		}
+		
+		return null;
+	}
+	
+	private boolean namediDupChk(String loginid) {
+		
+		Member member = loginDupChk(loginid);
+
+		if (member == null) {
+			return true;
+		}
+		
 		return true;
+	}
+
+	public int getLastMemberId() {
+		return lastMemberId;
+	}
+
+	public void setLastMemberId(int lastMemberId) {
+		this.lastMemberId = lastMemberId;
 	}
 
 	
