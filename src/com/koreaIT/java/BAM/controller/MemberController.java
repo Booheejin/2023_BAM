@@ -12,6 +12,7 @@ public class MemberController extends Controller{
 	private List<Member> members;
 	private Scanner sc;
 	private int lastMemberId;
+	private Member loginedMember;
 	
 	
 	
@@ -19,6 +20,7 @@ public class MemberController extends Controller{
 		this.members = new ArrayList<>();
 		this.sc =sc;
 		this.setLastMemberId(0);
+		this.loginedMember = null;
 	}
 	
 	@Override
@@ -31,6 +33,9 @@ public class MemberController extends Controller{
 			break;
 		case "login":
 			doLogin();
+			break;
+		case "logout":
+			doLogout();
 			break;
 		default:
 	    	System.out.println("존재하지 않는 명령어 입니다.");
@@ -96,7 +101,13 @@ public class MemberController extends Controller{
 		
 		String loginid = null;
 		String ps = null;
+		
 		while(true) {
+			
+			if(loginedMember != null) {
+				System.out.println("이미 로그인 중입니다.");
+				return;
+			}
 			
 			System.out.printf("로그인 아이디 : ");
 			loginid = sc.nextLine().trim();;
@@ -116,9 +127,20 @@ public class MemberController extends Controller{
 				continue;
 			}
 			
+			this.loginedMember = member;
+			
 			System.out.printf("로그인 성공! %s 님 환영합니다\n",member.name);
 			break;
 		}
+	}
+	private void doLogout() {
+		if(loginedMember == null) {
+			System.out.println("로그인 후 이용해주세요.");
+			return;
+		}
+		this.loginedMember = null;
+		
+		System.out.println("로그아웃 되었습니다");
 	}
 	
 	private Member loginDupChk(String loginid) {
@@ -151,10 +173,12 @@ public class MemberController extends Controller{
 	public void setLastMemberId(int lastMemberId) {
 		this.lastMemberId = lastMemberId;
 	}
-
-	
-
-	
-
+	public void makeTestData() {
+		System.out.println("회원 테스트 데이터를 생성합니다.");
+		members.add(new Member(1,Util.getDate(),"test1","test1","test1","test1"));
+		members.add(new Member(2,Util.getDate(),"test2","test2","test2","test2"));
+		members.add(new Member(3,Util.getDate(),"test3","test3","test3","test3"));
+		
+	}
 	
 }

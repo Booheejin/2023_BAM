@@ -8,7 +8,7 @@ public class Member extends Dto {
 	
 	
 	
-	public Member(int id ,String regDate,String loginid,String ps, String pscid,String name ){
+	public Member(int id ,String regDate,String loginid,String ps, String pscid ,String name){
 		this.id = id;
 		this.regDate= regDate;
 		this.loginid = loginid;
