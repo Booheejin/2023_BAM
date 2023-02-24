@@ -15,7 +15,6 @@ public class ArticleController extends Controller {
 	private int lastArticleId;
 	private String cmd;
 	
-	
 	public ArticleController(Scanner sc) {
 		this.articles = new ArrayList<>();
 		this.sc =sc;
@@ -50,8 +49,13 @@ public class ArticleController extends Controller {
 	}
 	
 	private void acWrite() {
-		int id = lastArticleId +1;
-		lastArticleId++;
+		
+		if(isLogined() == false) {
+			System.out.println("로그인 해주세요.");
+			return;
+		}
+		
+		int id = loginedMember.id;
 
 		String regDate= Util.getDate();
 		System.out.printf("제목 : ");

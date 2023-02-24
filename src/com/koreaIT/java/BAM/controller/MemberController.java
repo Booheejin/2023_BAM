@@ -12,7 +12,7 @@ public class MemberController extends Controller{
 	private List<Member> members;
 	private Scanner sc;
 	private int lastMemberId;
-	private Member loginedMember;
+	
 	
 	
 	
@@ -20,7 +20,6 @@ public class MemberController extends Controller{
 		this.members = new ArrayList<>();
 		this.sc =sc;
 		this.setLastMemberId(0);
-		this.loginedMember = null;
 	}
 	
 	@Override
@@ -134,39 +133,32 @@ public class MemberController extends Controller{
 				continue;
 			}
 			
-			this.loginedMember = member;
+			loginedMember = member;
 			
 			System.out.printf("로그인 성공! %s 님 환영합니다\n",member.name);
 			break;
 		}
 	}
-	
+
 	private void doProfile() {
 		if(isLogined() == false) {
 			System.out.println("로그인 해주세요.");
 			return;
 		}
 		System.out.println("== 내 정보 ==");
-		System.out.printf("로그인 아이디 : %s\n",this.loginedMember.loginid);
-		System.out.printf("이름: %s\n",this.loginedMember.name);
+		System.out.printf("로그인 아이디 : %s\n",loginedMember.loginid);
+		System.out.printf("이름: %s\n",loginedMember.name);
 	}
 
-	private void doLogout() {
+	public void doLogout() {
 		if(isLogined()  == false) {
 			System.out.println("로그인 후 이용해주세요.");
 			return;
 		}
-		this.loginedMember = null;
+		loginedMember = null;
 		
 		System.out.println("로그아웃 되었습니다");
 	}
-	
-	
-	private boolean isLogined() {
-		
-		return loginedMember != null;
-	}
-	
 	
 	private Member loginDupChk(String loginid) {
 		
