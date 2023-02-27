@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import com.koreaIT.java.BAM.container.Container;
 import com.koreaIT.java.BAM.dto.Article;
+import com.koreaIT.java.BAM.dto.Member;
 import com.koreaIT.java.BAM.util.Util;
 
 public class ArticleController extends Controller {
@@ -16,7 +18,7 @@ public class ArticleController extends Controller {
 	private String cmd;
 	
 	public ArticleController(Scanner sc) {
-		this.articles = new ArrayList<>();
+		this.articles = Container.articleDao.articles;
 		this.sc =sc;
 		this.lastArticleId = 3;
 	}
@@ -62,7 +64,7 @@ public class ArticleController extends Controller {
 		
 		Article article = new Article(id,regDate,loginedMember.id,title,body);
 		
-		articles.add(article);
+		Container.articleDao.articles.add(article);  //2-28일 수업여기부터
 		
 		System.out.printf("%d번 글이 생성되었습니다.\n",id);
 	}
@@ -132,13 +134,24 @@ public class ArticleController extends Controller {
 			
 		}
 		
-		System.out.println("번호 |  제목    |    날짜		|  작성자  |  조회");
+		System.out.println("번호	|	제목	|		날짜		|	작성자	|	조회");
 		
 		Collections.reverse(printArticles);	 
 		
 		for(Article article : printArticles) {
 			
-			System.out.printf("  %d  |  %s    |  %s	|    %d     |   %d\n",article.id,article.title,article.regDate,article.memberId, article.viewCnt);
+			String wrtierName = null;
+			
+			List<Member> members = Container.memberDao.members;
+			
+			for(Member member : members) {
+				if(article.memberId == member.id) {
+					wrtierName = member.name;
+					break;
+				}
+			}
+			
+			System.out.printf("%d	|	%s	|	%s	|	%s	|	%d\n",article.id,article.title,article.regDate, wrtierName , article.viewCnt);
 				
 		}
 		
