@@ -51,10 +51,6 @@ public class MemberController extends Controller{
 	
 	private void doJoin(){
 		
-		if(isLogined()) {
-			System.out.println("로그아웃 후 이용해주세요.");
-			return;
-		}
 		int id = lastArticleId +1;
 		lastArticleId = id;
 		String regDate= Util.getDate();
@@ -110,11 +106,6 @@ public class MemberController extends Controller{
 		
 		while(true) {
 			
-			if(isLogined()) {
-				System.out.println("이미 로그인 중입니다.");
-				return;
-			}
-			
 			System.out.printf("로그인 아이디 : ");
 			loginid = sc.nextLine().trim();;
 			
@@ -141,20 +132,14 @@ public class MemberController extends Controller{
 	}
 
 	private void doProfile() {
-		if(isLogined() == false) {
-			System.out.println("로그인 해주세요.");
-			return;
-		}
+		
 		System.out.println("== 내 정보 ==");
 		System.out.printf("로그인 아이디 : %s\n",loginedMember.loginid);
 		System.out.printf("이름: %s\n",loginedMember.name);
 	}
 
 	public void doLogout() {
-		if(isLogined()  == false) {
-			System.out.println("로그인 후 이용해주세요.");
-			return;
-		}
+		
 		loginedMember = null;
 		
 		System.out.println("로그아웃 되었습니다");

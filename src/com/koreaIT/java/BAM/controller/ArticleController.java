@@ -27,17 +27,9 @@ public class ArticleController extends Controller {
 	
 		switch(methodName) {
 		case "write":
-			if(isLogined() == false) {
-				System.out.println("로그인 해주세요.");
-				break;
-			}
 			acWrite();
 			break;
 		case "modify":
-			if(isLogined() == false) {
-				System.out.println("로그인 해주세요.");
-				break;
-			}
 			acModify();
 			break;
 		case "list":
@@ -47,10 +39,6 @@ public class ArticleController extends Controller {
 			acDetail();
 			break;
 		case "delete":
-			if(isLogined() == false) {
-				System.out.println("로그인 해주세요.");
-				break;
-			}
 			acDelete();
 			break;
 	    default:
@@ -61,11 +49,6 @@ public class ArticleController extends Controller {
 	}
 	
 	private void acWrite() {
-		
-		if(isLogined() == false) {
-			System.out.println("로그인 해주세요.");
-			return;
-		}
 		
 		int id = lastArticleId+1;
 		lastArticleId = id;
