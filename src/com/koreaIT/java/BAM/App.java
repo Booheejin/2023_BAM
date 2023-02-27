@@ -59,7 +59,7 @@ public class App {
 			String actionName = controllerName + "/" + methodName;
 			
 			switch(actionName) {
-			case"article/wrtie":
+			case"article/write":
 			case"article/modify":
 			case"article/delete":
 			case"member/profile":
