@@ -111,6 +111,7 @@ public class ArticleController extends Controller {
 		System.out.println("검색어 :" +searchKeyword);
 		
 		List<Article> printArticles = Container.articleService.getPrintArticles(searchKeyword);
+	
 		
 		if(printArticles.size() == 0){
 			System.out.println("검색결과가 없습니다.");
@@ -119,10 +120,11 @@ public class ArticleController extends Controller {
 		
 		System.out.println("번호	|	제목	|		날짜		|	작성자	|	조회");
 		
-		Collections.reverse(printArticles);	 
+//		Collections.reverse(printArticles);	 
 		
-		for(Article article : printArticles) {
+		for(int i = printArticles.size() - 1; i >= 0; i--) {
 			
+			Article article = printArticles.get(i);
 			String wrtierName = null;
 			
 			List<Member> members = Container.memberDao.members;
