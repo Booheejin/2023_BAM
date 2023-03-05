@@ -11,4 +11,23 @@ public class ArticleService {
 		return Container.articleDao.getPrintARticles(searchKeyword);
 	}
 
+	public int getLastId() {
+		
+		return Container.articleDao.getLastId();
+	}
+
+	public void add(Article article) {
+		Container.articleDao.add(article);
+		
+	}
+
+	public Article getArticleById(int id) {
+		
+		return Container.articleDao.getArticleById(id);
+	}
+	public void remove(Article foundArticle) {
+		Container.articleDao.remove(foundArticle);
+		
+	}
+
 }
