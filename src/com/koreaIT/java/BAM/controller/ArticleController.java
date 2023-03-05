@@ -15,7 +15,7 @@ public class ArticleController extends Controller {
 	private String cmd;
 	
 	public ArticleController(Scanner sc) {
-		this.articleService =  Container.articleService;
+		this.articleService = Container.articleService;
 		this.sc =sc;
 	}
 	

@@ -14,9 +14,6 @@ public class MemberController extends Controller{
 	private int lastMemberId;
 	private MemberService memberService;
 	
-	
-	
-	
 	public MemberController(Scanner sc) {
 		
 		this.memberService =  Container.memberService;
