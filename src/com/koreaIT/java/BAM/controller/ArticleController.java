@@ -1,6 +1,5 @@
 package com.koreaIT.java.BAM.controller;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -107,29 +106,15 @@ public class ArticleController extends Controller {
 	
 	private void acList() {
 		
-		if(articles.size() == 0) {
-			System.out.println("게시글이 없습니다.");
-			return;
-		}
 		String searchKeyword = cmd.substring("article list".length()).trim();
 		
-		List<Article> printArticles = new ArrayList<>(articles);
+		System.out.println("검색어 :" +searchKeyword);
 		
-		if(searchKeyword.length() > 0) {
-			System.out.println("검색어 :" +searchKeyword);
-			
-			printArticles.clear();
-			
-			for(Article article : articles) {
-				if(article.title.contains(searchKeyword)) {
-					printArticles.add(article);
-				}
-			}
-			if(printArticles.size() == 0){
-				System.out.println("검색결과가 없습니다.");
-				return;
-			}
-			
+		List<Article> printArticles = Container.articleService.getPrintArticles(searchKeyword);
+		
+		if(printArticles.size() == 0){
+			System.out.println("검색결과가 없습니다.");
+			return;
 		}
 		
 		System.out.println("번호	|	제목	|		날짜		|	작성자	|	조회");

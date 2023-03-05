@@ -17,5 +17,22 @@ public class ArticleDao extends Dao {
 		lastId++;
 	}
 
+	public List<Article> getPrintARticles(String searchKeyword) {
+		
+		if(searchKeyword.length() > 0) {
+			
+			List<Article> printArticles = new ArrayList<>();
+			
+			for(Article article : articles) {
+				if(article.title.contains(searchKeyword)) {
+					printArticles.add(article);
+				}
+			}
+			return printArticles;
+			
+		}
+		return articles;
+	}
+
 	
 }
