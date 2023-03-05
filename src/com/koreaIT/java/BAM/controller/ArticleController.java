@@ -14,13 +14,11 @@ public class ArticleController extends Controller {
 	
 	private List<Article> articles;
 	private Scanner sc;
-	private int lastArticleId;
 	private String cmd;
 	
 	public ArticleController(Scanner sc) {
 		this.articles = Container.articleDao.articles;
 		this.sc =sc;
-		this.lastArticleId = 3;
 	}
 	
 	@Override
@@ -52,8 +50,7 @@ public class ArticleController extends Controller {
 	
 	private void acWrite() {
 		
-		int id = lastArticleId+1;
-		lastArticleId = id;
+		int id = Container.articleDao.getLastId();
 
 		String regDate= Util.getDate();
 		System.out.printf("제목 : ");
@@ -64,7 +61,8 @@ public class ArticleController extends Controller {
 		
 		Article article = new Article(id,regDate,loginedMember.id,title,body);
 		
-		Container.articleDao.articles.add(article);  //2-28일 수업여기부터
+		Container.articleDao.add(article);
+//		Container.articleDao.articles.add(article);
 		
 		System.out.printf("%d번 글이 생성되었습니다.\n",id);
 	}
@@ -175,11 +173,22 @@ public class ArticleController extends Controller {
 			return;
 		}
 		
-		foundArticle.addViewcnt();
+		String wrtierName = null;
 		
+		List<Member> members = Container.memberDao.members;
+		
+		for(Member member : members) {
+			if(foundArticle.memberId == member.id) {
+				wrtierName = member.name;
+				break;
+			}
+		}
+		
+		foundArticle.addViewcnt();
+
 		System.out.printf("번호 : %d\n",foundArticle.id);
 		System.out.printf("날짜 : %s\n",foundArticle.regDate);
-		System.out.printf("작성자 : %d\n",foundArticle.memberId);
+		System.out.printf("작성자 : %s\n",wrtierName);
 		System.out.printf("제목 : %s\n",foundArticle.title);
 		System.out.printf("내용 : %s\n",foundArticle.body);
 		System.out.printf("조회수 : %d\n",foundArticle.viewCnt);
@@ -227,9 +236,9 @@ public class ArticleController extends Controller {
 	}
 	public void makeTestData() {
 		System.out.println("게시물 테스트 데이터를 생성합니다.");
-		articles.add(new Article(1,Util.getDate(), 1,"제목1","내용",10));
-		articles.add(new Article(2,Util.getDate(), 2,"제목2","내용",20));
-		articles.add(new Article(3,Util.getDate(), 3,"제목3","내용",30));
+		Container.articleDao.add(new Article(Container.articleDao.getLastId(),Util.getDate(), 1,"제목1","내용",10));
+		Container.articleDao.add(new Article(Container.articleDao.getLastId(),Util.getDate(), 2,"제목2","내용",20));
+		Container.articleDao.add(new Article(Container.articleDao.getLastId(),Util.getDate(), 3,"제목3","내용",30));
 		
 	}
 
