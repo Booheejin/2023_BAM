@@ -107,10 +107,23 @@ public class MemberController extends Controller{
 		while(true) {
 			
 			System.out.printf("로그인 아이디 : ");
-			loginid = sc.nextLine().trim();;
+			loginid = sc.nextLine().trim();
 			
-			System.out.printf("로그인 비밀번호 : ");
-			ps = sc.nextLine().trim();;
+			if(loginid.length() == 0) {
+				System.out.println("로그인 아이디를 입력해주세요");
+				continue;
+			}
+			while(true) {
+				
+				System.out.printf("로그인 비밀번호 : ");
+				ps = sc.nextLine().trim();
+				
+				if(ps.length() == 0) {
+					System.out.println("로그인 비밀번호를 입력해주세요");
+					continue;
+				}
+				break;
+			}
 			
 			Member member = loginDupChk(loginid);
 			
